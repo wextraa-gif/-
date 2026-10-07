@@ -21,9 +21,46 @@
 - **Кто спрашивает.** Скилл отделяет клиентов от тех, кто сам осваивает
   профессию, чтобы они не смешивались в одном списке.
 
+## Где работает
+
+Скилл написан в открытом формате Agent Skills: папка с файлом `SKILL.md` и
+двумя скриптами на Python. Ему нужны две вещи: возможность запускать скрипты и
+доступ в интернет к подсказкам Google (`suggestqueries.google.com`).
+
+| Где | Как поставить | Что учесть |
+|---|---|---|
+| Claude Code (терминал, десктоп, веб) | способ 1 или 2 | Проверено, работает |
+| Claude в браузере и приложении (claude.ai) | способ 3, ZIP-архив | Нужно включить выполнение кода и разрешить доступ к `suggestqueries.google.com` |
+| Codex, Cursor, Gemini CLI, GitHub Copilot, Windsurf, Cline, Roo Code, OpenCode, Qwen Code, Kiro, Trae, Antigravity и ещё около 60 агентов | способ 1 | Установка проверена, работа скриптов в них нет. Агенту нужен терминал и доступ в интернет: в некоторых, например в Codex, сеть в песочнице по умолчанию закрыта |
+| ChatGPT в браузере | не подходит | Песочница, где ChatGPT выполняет код, не выходит в интернет |
+
 ## Установка
 
-Нужны Claude Code и Python 3.9 или новее. Сторонние библиотеки не нужны.
+### Способ 1. Одной командой, в любой агент
+
+Нужен Node.js 18 или новее. Команда сама найдёт скилл в репозитории и
+спросит, в какие агенты его поставить:
+
+```bash
+npx skills add https://github.com/wextraa-gif/-
+```
+
+Чтобы сразу поставить в нужный агент для всех проектов, добавьте `-g` и имя
+агента:
+
+```bash
+npx skills add https://github.com/wextraa-gif/- -g -a claude-code -y
+```
+
+Имена популярных агентов: `claude-code`, `codex`, `cursor`, `gemini-cli`,
+`github-copilot`, `windsurf`, `cline`, `roo`, `opencode`, `qwen-code`,
+`kiro-cli`, `trae`, `antigravity`. Можно перечислить несколько через пробел.
+
+### Способ 2. Вручную в Claude Code
+
+Нужны git и Python 3.9 или новее.
+
+macOS и Linux:
 
 ```bash
 git clone https://github.com/wextraa-gif/-.git audience-insights-repo
@@ -31,7 +68,30 @@ mkdir -p ~/.claude/skills
 cp -r audience-insights-repo/audience-insights ~/.claude/skills/
 ```
 
+Windows (PowerShell):
+
+```powershell
+git clone https://github.com/wextraa-gif/-.git audience-insights-repo
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.claude\skills"
+Copy-Item -Recurse audience-insights-repo\audience-insights "$env:USERPROFILE\.claude\skills\"
+```
+
 Перезапустите Claude Code. Скилл подхватится сам.
+
+### Способ 3. Claude в браузере и приложении
+
+1. Скачайте архив:
+   <https://github.com/wextraa-gif/-/raw/main/audience-insights.zip>.
+   Кнопка «Download ZIP» на странице GitHub не подойдёт: в её архиве лишняя
+   папка сверху.
+2. Откройте Settings → Capabilities и включите «Code execution and file
+   creation».
+3. Там же разрешите выход в интернет: «All domains» или список доменов с
+   `suggestqueries.google.com`. В тарифах Team и Enterprise это делает
+   администратор организации.
+4. В разделе Skills загрузите `audience-insights.zip` и включите скилл.
+
+Этот способ я не проверял запуском: он опирается на справку Claude.
 
 ## Как запустить
 
