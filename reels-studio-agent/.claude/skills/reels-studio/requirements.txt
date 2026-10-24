@@ -1,0 +1,6 @@
+faster-whisper>=1.0
+opencv-python-headless>=4.8,<5  # детектор лиц YuNet лежит в models/
+numpy
+Pillow
+fonttools>=4.40  # статичные начертания выбранных шрифтов
+rembg[cpu]>=2.0  # вырезание человека для обложки

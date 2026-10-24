@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+# временные превью — профиль стиля (brand.json, refs/, выбранные шрифты) коммитится
+fonts/preview-*
+fonts/.dl-*
+brand/fonts_preview.png
+brand/style_board.png
